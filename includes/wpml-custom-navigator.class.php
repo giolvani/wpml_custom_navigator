@@ -4,6 +4,8 @@ use Philo\Blade\Blade;
 
 class WPML_Custom_Navigator extends WP_Widget 
 {
+	private $blade;
+
 	function __construct() 
 	{
 		parent::__construct(
@@ -11,6 +13,10 @@ class WPML_Custom_Navigator extends WP_Widget
 			__('WPML Language Selector', WPML_CUSTOM_NAV_ID), 
 			array( 'description' => __( 'Widget to show customized WPML selector', WPML_CUSTOM_NAV_ID ) ) 
 		);
+
+		$views = WPML_CUSTOM_NAV_PLUGIN_PATH . '/views';
+		$cache = WPML_CUSTOM_NAV_PLUGIN_PATH . '/cache';
+		$this->blade = new Blade($views, $cache);
 	}
 
 	//frontend
@@ -24,26 +30,17 @@ class WPML_Custom_Navigator extends WP_Widget
 			echo $args['before_title'] . $title . $args['after_title'];
 		}
 
-		echo __( 'Hello, World!', WPML_CUSTOM_NAV_ID );
+		$languages = icl_get_languages('skip_missing=1');
+		$content = $this->blade->view()->make('tpl_structure', ['languages' => $languages]);
+
+		echo __( $content, WPML_CUSTOM_NAV_ID );
 		echo $args['after_widget'];
 	}
 			
 	// backend
 	public function form( $instance ) 
 	{
-        $blade = new Blade($views, $cache);
-        
-		/*if ( isset( $instance[ 'title' ] ) ) 
-		{
-			$title = $instance[ 'title' ];
-		}
-		else 
-		{
-			//set default value
-			//$title = __( '', WPML_CUSTOM_NAV_ID );
-		}*/
-		
-		echo $blade->view()->make('backend'); 
+		echo $this->blade->view()->make('backend', ['_this' => $this, 'instance' => $instance]);
 	}
 		
 	// Updating widget replacing old instances with new
@@ -51,6 +48,11 @@ class WPML_Custom_Navigator extends WP_Widget
 	{
 		$instance = array();
 		$instance['title'] = ( ! empty( $new_instance['title'] ) ) ? strip_tags( $new_instance['title'] ) : '';
+		$instance['tpl_structure'] = ( ! empty( $new_instance['tpl_structure'] ) ) ? htmlentities( $new_instance['tpl_structure'] ) : '';
+
+		touch(WPML_CUSTOM_NAV_PLUGIN_PATH . '/views/tpl_structure.blade.php');
+		file_put_contents(WPML_CUSTOM_NAV_PLUGIN_PATH . '/views/tpl_structure.blade.php', ($new_instance['tpl_structure']));
+
 		return $instance;
 	}
 } 
