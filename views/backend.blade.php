@@ -20,4 +20,6 @@
 <p>
     <label for="{{ $_this->get_field_id( 'tpl_structure' ) }}">{{ _e( 'Template' ) }}</label>
     <textarea class="widefat" id="{{ $_this->get_field_id( 'tpl_structure' ) }}" name="{{ $_this->get_field_name( 'tpl_structure' ) }}">{{ esc_attr( $tpl_structure ) }}</textarea>
+    <br/>
+    <a href="https://github.com/giolvani/wpml_custom_navigator" target="_blank">Supported tags</a>
 </p>
