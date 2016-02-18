@@ -7,8 +7,8 @@ Create customized html structures for the WPML selector, using blade template en
 Templates
 ------------
 
-Default template
-```html
+Default template (views/tpl_structure.blade.php)
+```php
 @foreach($languages as $key => $lang)
     <a href="{{ $lang['url'] }}">{{ $lang['native_name'] }}</a>
     {{ (array_search($key, array_keys($languages)) + 1) < count($languages) ? '|' : null }}
@@ -17,7 +17,7 @@ Default template
 
 
 Template for [Sailing WordPress Theme](http://demo.thimpress.com/?item=sailing)
-```html
+```php
 <div class="thim-select-language">
     <div class="language">
         <span>Language</span>
