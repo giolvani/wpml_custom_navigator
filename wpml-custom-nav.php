@@ -11,6 +11,10 @@ Plugin Slug: wpml-custom-nav
 define('WPML_CUSTOM_NAV_PLUGIN_PATH', dirname(__FILE__));
 define('WPML_CUSTOM_NAV_ID', 'wpml_custom_navigator');
 
+$views = dirname(__FILE__) . '/views';
+$cache = dirname(__FILE__) . '/cache';
+
+require WPML_CUSTOM_NAV_PLUGIN_PATH . '/vendor/autoload.php';
 require WPML_CUSTOM_NAV_PLUGIN_PATH . '/includes/wpml-custom-navigator.class.php';
 
 // Register and load the widget

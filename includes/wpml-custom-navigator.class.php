@@ -1,5 +1,7 @@
 <?php
 
+use Philo\Blade\Blade;
+
 class WPML_Custom_Navigator extends WP_Widget 
 {
 	function __construct() 
@@ -29,7 +31,9 @@ class WPML_Custom_Navigator extends WP_Widget
 	// backend
 	public function form( $instance ) 
 	{
-		if ( isset( $instance[ 'title' ] ) ) 
+        $blade = new Blade($views, $cache);
+        
+		/*if ( isset( $instance[ 'title' ] ) ) 
 		{
 			$title = $instance[ 'title' ];
 		}
@@ -37,15 +41,9 @@ class WPML_Custom_Navigator extends WP_Widget
 		{
 			//set default value
 			//$title = __( '', WPML_CUSTOM_NAV_ID );
-		}
+		}*/
 		
-		// Widget admin form
-		?>
-		<p>
-		<label for="<?php echo $this->get_field_id( 'title' ); ?>"><?php _e( 'Title:' ); ?></label> 
-		<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
-		</p>
-		<?php 
+		echo $blade->view()->make('backend'); 
 	}
 		
 	// Updating widget replacing old instances with new
