@@ -41,6 +41,13 @@ Template for [Sailing WordPress Theme](http://demo.thimpress.com/?item=sailing)
 References
 ------------
 
+#### Available variables
+ Var        | Description
+:-----------|:-----------------------------------------------------------------------
+ $languages | List of available languages
+ $active    | Active language 
+
+
 #### Tags documentation
 
  Tag                | Description

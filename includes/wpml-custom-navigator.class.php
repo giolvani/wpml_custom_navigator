@@ -31,7 +31,14 @@ class WPML_Custom_Navigator extends WP_Widget
 		}
 
 		$languages = icl_get_languages('skip_missing=1');
-		$content = $this->blade->view()->make('tpl_structure', ['languages' => $languages]);
+		$activeLang = null;
+		foreach ($languages as $lang){
+			if ($lang['active'] == true) {
+				$activeLang = $lang;
+				break;
+			}
+		}
+		$content = $this->blade->view()->make('tpl_structure', ['languages' => $languages, 'active' => $activeLang]);
 
 		echo __( $content, WPML_CUSTOM_NAV_ID );
 		echo $args['after_widget'];
