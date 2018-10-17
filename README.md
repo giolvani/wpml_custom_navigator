@@ -1,5 +1,5 @@
-#WPML Custom Selector/Navigator
-###Widget
+# WPML Custom Selector/Navigator
+### Widget
 
 
 Create customized html structures for the WPML selector, using blade template engine.
